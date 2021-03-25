@@ -1,12 +1,12 @@
 #!/bin/bash
 
+DEVICE=laurel_sprout
 cd /tmp/rom # Depends on where source got synced
 rm -rf .repo & # lets remove unnecessary things, so that no storage issue can occur
 
 # Normal build steps
 . build/envsetup.sh
-lunch lineage_whyred-userdebug
-export SELINUX_IGNORE_NEVERALLOWS=true
+lunch evolution_$DEVICE-userdebug
 export CCACHE_DIR=/tmp/ccache
 export CCACHE_EXEC=$(which ccache)
 export USE_CCACHE=1
@@ -36,10 +36,10 @@ make_metalava(){
 }
 
 make_rom(){
-	tg_post_msg "<b>Crdroidandroid CI Build Triggered for whyred</b>" "$CHATID"
+	tg_post_msg "<b>EvolutionX CI Build Triggered for $DEVICE</b>" "$CHATID"
 	mka bacon -j16
-	if [ -f out/target/product/whyred/*zip ]; then
-		zip=$(up out/target/product/whyred/*zip)
+	if [ -f out/target/product/$DEVICE/*zip ]; then
+		zip=$(up out/target/product/$DEVICE/*zip)
 		echo " "
 		echo "$zip"
 		tg_post_msg "<b>Build Completed</b>%0A%0A<b>Link : </b> <code>"$zip"</code>" "$CHATID"
