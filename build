@@ -24,6 +24,13 @@ tg_post_msg() {
         -d text="$1"
 }
 
+tg_error_msg() {
+        curl -s -X POST "$BOT_MSG_URL" -d chat_id="$2" \
+        -d "parse_mode=html" \
+        -d text="$1" \
+        -d log_file="$3"
+}
+
 # stuffs
 up(){
 	curl --upload-file $1 https://transfer.sh/
@@ -37,14 +44,15 @@ make_metalava(){
 
 make_rom(){
 	tg_post_msg "<b>EvolutionX CI Build Triggered for $DEVICE</b>" "$CHATID"
-	mka bacon -j16
+	mka bacon -j16 | tee logs.log
 	if [ -f out/target/product/$DEVICE/*zip ]; then
 		zip=$(up out/target/product/$DEVICE/*zip)
 		echo " "
 		echo "$zip"
 		tg_post_msg "<b>Build Completed</b>%0A%0A<b>Link : </b> <code>"$zip"</code>" "$CHATID"
 	else
-		tg_post_msg "<b>Build Failed, check cirrus console</b>" "$CHATID"
+		LOGS=$(up logs.log)
+		tg_error_msg "<b>Build Failed, check logs.log file</b>" "$CHATID" "$LOGS"
 	fi
 }
 
