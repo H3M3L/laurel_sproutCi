@@ -47,9 +47,11 @@ make_rom(){
 	mka bacon -j16 | tee logs.log
 	if [ -f out/target/product/$DEVICE/*zip ]; then
 		zip=$(up out/target/product/$DEVICE/*zip)
+		json=$(up out/target/product/$DEVICE/*zip.json)
 		echo " "
 		echo "$zip"
 		tg_post_msg "<b>Build Completed</b>%0A%0A<b>Link : </b> <code>"$zip"</code>" "$CHATID"
+		tg_post_msg "<b>Json File</b>%0A%0A<b>Link : </b> <code>"$json"</code>" "$CHATID"
 	else
 		LOGS=$(up logs.log)
 		tg_error_msg "<b>Build Failed, check logs.log file</b>" "$CHATID" "$LOGS"
