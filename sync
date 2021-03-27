@@ -1,6 +1,6 @@
 #!/bin/bash
 
-MANIFEST=git://github.com/PotatoProject/manifest-git
+MANIFEST=git://github.com/PotatoProject/manifest.git
 BRANCH=dumaloo-release
 DEVICE=laurel_sprout
 BRAND=xiaomi
