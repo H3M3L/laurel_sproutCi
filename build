@@ -1,10 +1,10 @@
 #!/bin/bash
 
 DEVICE=laurel_sprout
-TG_USERNAME=@HemantSachdeva
+TG_USERNAME=@H3M3L
 cd /tmp/rom # Depends on where source got synced
 
-# SHRP uses python2 so using it in virtualenv will avoid syntax errors
+# PBRP uses python2 so using it in virtualenv will avoid syntax errors
 sudo apt-get -y update
 sudo apt-get -y install \
 python2 \
@@ -49,34 +49,31 @@ up(){
 	curl --upload-file $1 https://transfer.sh/
 }
 
-make_shrp(){
+make_pbrp(){
 	mka recoveryimage
-	if [ -f out/target/product/$DEVICE/SHRP_v*zip ]; then
-		zip=$(up out/target/product/$DEVICE/SHRP_v*zip)
-		addon=$(up out/target/product/$DEVICE/SHRP_AddonRescue_v*zip)
+	if [ -f out/target/product/$DEVICE/PBRP_v*zip ]; then
+		zip=$(up out/target/product/$DEVICE/PBRP_v*zip)
 		img=$(up out/target/product/$DEVICE/recovery.img)
 		echo " "
 		echo "$zip"
 		tg_post_msg "<b>$TG_USERNAME Build Completed</b>%0A%0A<b>Link : </b> <code>"$zip"</code>" "$CHATID"
-		tg_post_msg "<b>Addon Zip</b>%0A%0A<b>Link : </b> <code>"$addon"</code>" "$CHATID"
 		tg_post_msg "<b>Recovery IMG</b>%0A%0A<b>Link : </b> <code>"$img"</code>" "$CHATID"
 	else
 		tg_error_msg "<b>$TG_USERNAME Build Failed, check cirrus ci</b>" "$CHATID" "$LOGS"
 	fi
 }
 
-send_shrp(){
+send_pbrp(){
 	cd out/target/product/$DEVICE
-	if [ -f SHRP_v*zip ]; then
-	shrp_zip=$(ls SHRP_v*zip)
-	shrp_addon=$(ls SHRP_AddonRescue_v*zip)
-	tg_send_file $shrp_zip
-	tg_send_file $shrp_addon
-	shrp_zip=${shrp_zip%.*}
-	mv recovery.img $shrp_zip.img
-	tg_send_file $shrp_zip.img
+	if [ -f PBRP_v*zip ]; then
+	pbrp_zip=$(ls PBRP_v*zip)
+	tg_send_file $pbrp_zip
+	tg_send_file $pbrp_addon
+	pbrp_zip=${pbrp_zip%.*}
+	mv recovery.img $pbrp_zip.img
+	tg_send_file $pbrp_zip.img
 	fi
 }
 
-make_shrp
-send_shrp
+make_pbrp
+send_pbrp
