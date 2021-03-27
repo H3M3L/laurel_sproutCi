@@ -6,7 +6,6 @@ DEVICE=laurel_sprout
 BRAND=xiaomi
 PLATFORM=sm8150
 DT_LINK=https://github.com/H3M3L/A11_laurel_sprout
-BRANCH=Potato-dumaloo
 VT_LINK=https://github.com/H3M3L/A11_vendor_laurel_sprout
 KT_LINK=https://github.com/H3M3L/kernel_xiaomi_laurel_sprout
 IMAGE_LINK=https://gitlab.com/H3M3L/a10_laurel_sprout-images
@@ -27,7 +26,7 @@ git clone https://github.com/HemantSachdeva/hardware_qcom-caf_sm8150_display har
 git clone https://github.com/HemantSachdeva/vendor_qcom_opensource_display-commonsys-intf vendor/qcom/opensource/commonsys-intf/display
 git clone https://github.com/HemantSachdeva/vendor_qcom_opensource_wfd-commonsys vendor/qcom/opensource/wfd-commonsys
 
-git clone $DT_LINK --single-branch -b elle device/$BRAND/$DEVICE
-git clone $VT_LINK --single-branch -b elle vendor/$BRAND/$DEVICE
+git clone $DT_LINK --single-branch -b Potato-dumaloo device/$BRAND/$DEVICE
+git clone $VT_LINK --single-branch -b elle-permissive vendor/$BRAND/$DEVICE
 git clone $KT_LINK --single-branch -b elle kernel/$BRAND/$DEVICE
 git clone $IMAGE_LINK --single-branch -b elle device/$BRAND/$DEVICE-images
