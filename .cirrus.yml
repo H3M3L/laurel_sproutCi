@@ -17,6 +17,8 @@ task:
     sync_script:
       - ./sync
     build_script:
-      - ./build
+      - ./metalava
+    build_rom_script:
+      - ./rom
     upload_ccache_script:
       - ./upload_ccache
