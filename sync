@@ -1,7 +1,7 @@
 #!/bin/bash
 
 MANIFEST=git://github.com/PitchBlackRecoveryProject/manifest_pb
-BRANCH=Android-9.0
+BRANCH=android-9.0
 DEVICE=laurel_sprout
 BRAND=xiaomi
 DT_LINK=https://github.com/H3M3L/PBRP_laurel_sprout
