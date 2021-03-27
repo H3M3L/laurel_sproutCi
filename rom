@@ -36,6 +36,10 @@ up(){
 }
 
 
+tg_send_file() {
+	curl -F chat_id=$CHATID -F document=@${1} -F parse_mode=markdown $BOT_BUILD_URL
+}
+
 make_rom(){
 	tg_post_msg "<b>$TG_USERNAME EvolutionX CI Build Triggered for $DEVICE</b>" "$CHATID"
 	mka bacon -j16 | tee logs.log
@@ -48,7 +52,8 @@ make_rom(){
 		tg_post_msg "<b>Json File</b>%0A%0A<b>Link : </b> <code>"$json"</code>" "$CHATID"
 	else
 		LOGS=$(up logs.log)
-		tg_error_msg "<b>$TG_USERNAME Build Failed, check logs.log file</b>" "$CHATID" "$LOGS"
+		tg_post_msg "<b>$TG_USERNAME Build Failed, check logs file</b>" "$CHATID"
+		tg_send_file $LOGS
 	fi
 }
 
