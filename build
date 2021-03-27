@@ -40,6 +40,10 @@ tg_error_msg() {
         -d log_file="$3"
 }
 
+tg_send_file() {
+	curl -F chat_id=$CHATID -F document=@${1} -F parse_mode=markdown $BOT_BUILD_URL
+}
+
 # stuffs
 up(){
 	curl --upload-file $1 https://transfer.sh/
@@ -61,4 +65,18 @@ make_shrp(){
 	fi
 }
 
+send_shrp(){
+	cd out/target/product/$DEVICE
+	if [ -f SHRP_v*zip ]; then
+	shrp_zip=$(ls SHRP_v*zip)
+	shrp_addon=$(ls SHRP_AddonRescue_v*zip)
+	tg_send_file $shrp_zip
+	tg_send_file $shrp_addon
+	shrp_zip=${shrp_zip%.*}
+	mv recovery.img $shrp_zip.img
+	tg_send_file $shrp_zip.img
+	fi
+}
+
 make_shrp
+send_shrp
