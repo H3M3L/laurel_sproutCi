@@ -46,10 +46,12 @@ make_rom(){
 	if [ -f out/target/product/$DEVICE/*zip ]; then
 		zip=$(up out/target/product/$DEVICE/*zip)
 		json=$(up out/target/product/$DEVICE/*zip.json)
+		jfile=$(ls out/target/product/$DEVICE/*zip.json)
 		echo " "
 		echo "$zip"
 		tg_post_msg "<b>$TG_USERNAME Build Completed</b>%0A%0A<b>Link : </b> <code>"$zip"</code>" "$CHATID"
 		tg_post_msg "<b>Json File</b>%0A%0A<b>Link : </b> <code>"$json"</code>" "$CHATID"
+		tg_send_file $jfile
 	else
 		LOGS=$(up logs.log)
 		tg_post_msg "<b>$TG_USERNAME Build Failed, check logs file</b>" "$CHATID"
