@@ -2,10 +2,10 @@
 cd /tmp/rom
 
 DEVICE=laurel_sprout
-TG_USERNAME=@HemantSachdeva
+TG_USERNAME=@H3M3L
 
 . build/envsetup.sh
-lunch evolution_$DEVICE-userdebug
+lunch potato_$DEVICE-userdebug
 export CCACHE_DIR=/tmp/ccache
 export CCACHE_EXEC=$(which ccache)
 export USE_CCACHE=1
@@ -41,8 +41,8 @@ tg_send_file() {
 }
 
 make_rom(){
-	tg_post_msg "<b>$TG_USERNAME EvolutionX CI Build Triggered for $DEVICE</b>" "$CHATID"
-	mka bacon -j16 | tee logs.log
+	tg_post_msg "<b>$TG_USERNAME Potato CI Build Triggered for $DEVICE</b>" "$CHATID"
+	mka potato -j16 | tee logs.log
 	if [ -f out/target/product/$DEVICE/*zip ]; then
 		zip=$(up out/target/product/$DEVICE/*zip)
 		json=$(up out/target/product/$DEVICE/*zip.json)
