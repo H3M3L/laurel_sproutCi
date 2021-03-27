@@ -46,7 +46,6 @@ up(){
 }
 
 make_shrp(){
-	tg_post_msg "<b>$TG_USERNAME SHRP CI Build Triggered for $DEVICE</b>" "$CHATID"
 	mka recoveryimage
 	if [ -f out/target/product/$DEVICE/SHRP_v*zip ]; then
 		zip=$(up out/target/product/$DEVICE/SHRP_v*zip)
