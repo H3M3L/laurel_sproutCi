@@ -1,22 +1,21 @@
 #!/bin/bash
 
-MANIFEST=git://github.com/Evolution-X/manifest.git
-BRANCH=elle-aosp
+MANIFEST=git://github.com/PotatoProject/manifest-git
+BRANCH=dumaloo-release
 DEVICE=laurel_sprout
 BRAND=xiaomi
 PLATFORM=sm8150
-DT_LINK=https://github.com/HemantSachdeva/device_xiaomi_laurel_sprout
-VT_LINK=https://github.com/HemantSachdeva/vendor_xiaomi_laurel_sprout
-KT_LINK=https://github.com/HemantSachdeva/kernel_xiaomi_laurel_sprout
-IMAGE_LINK=https://gitlab.com/HemantSachdeva/device_xiaomi_laurel_sprout-images
-
+DT_LINK=https://github.com/H3M3L/A11_laurel_sprout/tree/Potato-dumaloo
+VT_LINK=https://github.com/H3M3L/A11_vendor_laurel_sprout
+KT_LINK=https://github.com/H3M3L/kernel_xiaomi_laurel_sprout
+IMAGE_LINK=https://gitlab.com/H3M3L/a10_laurel_sprout-images
 mkdir -p /tmp/rom
 cd /tmp/rom
 
 # Repo init command, that -device,-mips,-darwin,-notdefault part will save you more time and storage to sync, add more according to your rom and choice. Optimization is welcomed! Let's make it quit, and with depth=1 so that no unnecessary things.
 repo init --no-repo-verify --depth=1 -u "$MANIFEST" -b "$BRANCH" -g default,-device,-mips,-darwin,-notdefault
-git config --global user.name Hemant Sachdeva
-git config --global user.email hemant.evolver@gmail.com
+git config --global user.name H3M3L
+git config --global user.email lllooolllzzz555@gmail.com
 
 # Sync source with -q, no need unnecessary messages, you can remove -q if want! try with -j30 first, if fails, it will try again with -j8
 repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j$(nproc --all) || repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
