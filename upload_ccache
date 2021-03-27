@@ -12,4 +12,4 @@ time com ccache 1 # Compression level 1, its enough
 
 mkdir -p ~/.config/rclone
 echo "$rclone_config" > ~/.config/rclone/rclone.conf
-time rclone copy evo_ccache.tar.gz drive -P
+time rclone copy evo_ccache.tar.gz drive:ccache/ci -P
