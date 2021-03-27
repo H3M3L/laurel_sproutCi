@@ -17,4 +17,5 @@ git config --global user.email lllooolllzzz555@gmail.com
 repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j$(nproc --all) || repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
 
 # Sync stuffs
+find hardware/qcom/bootctrl .repo/ -delete
 git clone $DT_LINK --single-branch -b android-9.0 device/$BRAND/$DEVICE
