@@ -7,7 +7,7 @@ rm -rf .repo & # lets remove unnecessary things, so that no storage issue can oc
 
 # Normal build steps
 . build/envsetup.sh
-lunch evolution_$DEVICE-userdebug
+lunch omni_$DEVICE-eng
 export CCACHE_DIR=/tmp/ccache
 export CCACHE_EXEC=$(which ccache)
 export USE_CCACHE=1
@@ -37,27 +37,17 @@ up(){
 	curl --upload-file $1 https://transfer.sh/
 }
 
-make_metalava(){
-	mka api-stubs-docs
-	mka system-api-stubs-docs
-	mka test-api-stubs-docs
-}
-
-make_rom(){
-	tg_post_msg "<b>$TG_USERNAME EvolutionX CI Build Triggered for $DEVICE</b>" "$CHATID"
-	mka bacon -j16 | tee logs.log
-	if [ -f out/target/product/$DEVICE/*zip ]; then
-		zip=$(up out/target/product/$DEVICE/*zip)
-		json=$(up out/target/product/$DEVICE/*zip.json)
+make_shrp(){
+	tg_post_msg "<b>$TG_USERNAME SHRP CI Build Triggered for $DEVICE</b>" "$CHATID"
+	mka recoveryimage
+	if [ -f out/target/product/$DEVICE/SHRP_v*zip ]; then
+		zip=$(up out/target/product/$DEVICE/SHRP_v*zip)
 		echo " "
 		echo "$zip"
 		tg_post_msg "<b>$TG_USERNAME Build Completed</b>%0A%0A<b>Link : </b> <code>"$zip"</code>" "$CHATID"
-		tg_post_msg "<b>Json File</b>%0A%0A<b>Link : </b> <code>"$json"</code>" "$CHATID"
 	else
-		LOGS=$(up logs.log)
-		tg_error_msg "<b>$TG_USERNAME Build Failed, check logs.log file</b>" "$CHATID" "$LOGS"
+		tg_error_msg "<b>$TG_USERNAME Build Failed, check cirrus ci</b>" "$CHATID" "$LOGS"
 	fi
 }
 
-make_metalava
-make_rom
+make_shrp

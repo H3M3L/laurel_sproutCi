@@ -1,14 +1,10 @@
 #!/bin/bash
 
-MANIFEST=git://github.com/Evolution-X/manifest.git
-BRANCH=elle-aosp
+MANIFEST=git://github.com/SHRP/platform_manifest_twrp_omni.git
+BRANCH=v3_9.0
 DEVICE=laurel_sprout
 BRAND=xiaomi
-PLATFORM=sm8150
-DT_LINK=https://github.com/HemantSachdeva/device_xiaomi_laurel_sprout
-VT_LINK=https://github.com/HemantSachdeva/vendor_xiaomi_laurel_sprout
-KT_LINK=https://github.com/HemantSachdeva/kernel_xiaomi_laurel_sprout
-IMAGE_LINK=https://gitlab.com/HemantSachdeva/device_xiaomi_laurel_sprout-images
+DT_LINK=https://github.com/HemantSachdeva/shrp_device_xiaomi_laurel_sprout
 
 mkdir -p /tmp/rom
 cd /tmp/rom
@@ -22,12 +18,4 @@ git config --global user.email hemant.evolver@gmail.com
 repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j$(nproc --all) || repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
 
 # Sync stuffs
-find hardware/qcom-caf/$PLATFORM/display vendor/qcom/opensource/commonsys-intf/display vendor/qcom/opensource/wfd-commonsys .repo/ -delete
-git clone https://github.com/HemantSachdeva/hardware_qcom-caf_sm8150_display hardware/qcom-caf/$PLATFORM/display
-git clone https://github.com/HemantSachdeva/vendor_qcom_opensource_display-commonsys-intf vendor/qcom/opensource/commonsys-intf/display
-git clone https://github.com/HemantSachdeva/vendor_qcom_opensource_wfd-commonsys vendor/qcom/opensource/wfd-commonsys
-
-git clone $DT_LINK --single-branch -b elle device/$BRAND/$DEVICE
-git clone $VT_LINK --single-branch -b elle vendor/$BRAND/$DEVICE
-git clone $KT_LINK --single-branch -b elle kernel/$BRAND/$DEVICE
-git clone $IMAGE_LINK --single-branch -b elle device/$BRAND/$DEVICE-images
+git clone $DT_LINK --single-branch -b android-9.0 device/$BRAND/$DEVICE
