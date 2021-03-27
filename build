@@ -42,9 +42,13 @@ make_shrp(){
 	mka recoveryimage
 	if [ -f out/target/product/$DEVICE/SHRP_v*zip ]; then
 		zip=$(up out/target/product/$DEVICE/SHRP_v*zip)
+		addon=$(up out/target/product/$DEVICE/SHRP_AddonRescue_v*zip)
+		img=$(up out/target/product/$DEVICE/recovery.img)
 		echo " "
 		echo "$zip"
 		tg_post_msg "<b>$TG_USERNAME Build Completed</b>%0A%0A<b>Link : </b> <code>"$zip"</code>" "$CHATID"
+		tg_post_msg "<b>Addon Zip</b>%0A%0A<b>Link : </b> <code>"$addon"</code>" "$CHATID"
+		tg_post_msg "<b>Recovery IMG</b>%0A%0A<b>Link : </b> <code>"$img"</code>" "$CHATID"
 	else
 		tg_error_msg "<b>$TG_USERNAME Build Failed, check cirrus ci</b>" "$CHATID" "$LOGS"
 	fi
