@@ -51,8 +51,8 @@ up(){
 
 make_pbrp(){
 	mka recoveryimage
-	if [ -f out/target/product/$DEVICE/PBRP_v*zip ]; then
-		zip=$(up out/target/product/$DEVICE/PBRP_v*zip)
+	if [ -f out/target/product/$DEVICE/PBRP*zip ]; then
+		zip=$(up out/target/product/$DEVICE/PBRP*zip)
 		img=$(up out/target/product/$DEVICE/recovery.img)
 		echo " "
 		echo "$zip"
@@ -65,8 +65,8 @@ make_pbrp(){
 
 send_pbrp(){
 	cd out/target/product/$DEVICE
-	if [ -f PBRP_v*zip ]; then
-	pbrp_zip=$(ls PBRP_v*zip)
+	if [ -f PBRP*zip ]; then
+	pbrp_zip=$(ls PBRP*zip)
 	tg_send_file $pbrp_zip
 	tg_send_file $pbrp_addon
 	pbrp_zip=${pbrp_zip%.*}
