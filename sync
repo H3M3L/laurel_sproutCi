@@ -19,13 +19,13 @@ git config --global user.email lllooolllzzz555@gmail.com
 
 # Sync source with -q, no need unnecessary messages, you can remove -q if want! try with -j30 first, if fails, it will try again with -j8
 repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j$(nproc --all) || repo sync -c --no-clone-bundle --no-tags --optimized-fetch --prune --force-sync -j8
+cd vendor/potato && git remote add prebuilt https://github.com/Octavi-OS/platform_vendor_octavi && git fetch prebuilt && git cherry-pick b8cd09fd19dd5ce96c2d11b5a78d2c600032bbd2 && cd /tmp/rom
 
 # Sync stuffs
 find hardware/qcom-caf/$PLATFORM/display vendor/qcom/opensource/commonsys-intf/display vendor/qcom/opensource/wfd-commonsys .repo/ -delete
 git clone https://github.com/HemantSachdeva/hardware_qcom-caf_sm8150_display hardware/qcom-caf/$PLATFORM/display
 git clone https://github.com/HemantSachdeva/vendor_qcom_opensource_display-commonsys-intf vendor/qcom/opensource/commonsys-intf/display
 git clone https://github.com/HemantSachdeva/vendor_qcom_opensource_wfd-commonsys vendor/qcom/opensource/wfd-commonsys
-cd vendor/potato && git remote add prebuilt https://github.com/Octavi-OS/platform_vendor_octavi && git fetch prebuilt && git cherry-pick b8cd09fd19dd5ce96c2d11b5a78d2c600032bbd2
 
 git clone $DT_LINK --single-branch -b Potato-dumaloo device/$BRAND/$DEVICE
 git clone $VT_LINK --single-branch -b elle-permissive vendor/$BRAND/$DEVICE
